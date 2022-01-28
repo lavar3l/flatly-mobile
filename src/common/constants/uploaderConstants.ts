@@ -1,0 +1,1 @@
+export const MAX_UPLOADER_IMAGES = 10;
