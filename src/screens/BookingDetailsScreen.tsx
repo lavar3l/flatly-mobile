@@ -2,30 +2,22 @@ import React from "react";
 import { Text, View } from "../components/Themed";
 import { StyleSheet, Image } from "react-native";
 import { firstLine, secondLine } from "../common/helpers/addressConverter";
-import { Flat } from "../common/types/Flat";
 
-export default function FlatDetailsScreen({ route }: any) {
-  const flat = route.params;
+export default function BookingDetailsScreen({ route }: any) {
+  const booking = route.params;
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{flat.name}</Text>
-      <Image style={styles.image} source={flat.images[0]} />
+      <Text style={styles.title}>{booking.userData}</Text>
+      <Text style={styles.content}>Check-in date: {booking.startDateTime}</Text>
+      <Text style={styles.content}>Flat</Text>
+      <Image style={styles.image} source={booking.flat.images[0]} />
       <Text style={styles.content}>
-        Address
+        Rooms: {booking.flat.rooms}
         <br />
-        {firstLine(flat.address)}
+        {firstLine(booking.flat.address)}
         <br />
-        {secondLine(flat.address)}
-      </Text>
-      <Text style={styles.content}>
-        Details
-        <br />
-        Rooms: {flat.rooms}
-        <br />
-        Area: {flat.area}
-        <br />
-        Facilites: {flat.facilities.map((item: Flat) => item.name).join(", ")}
+        {secondLine(booking.flat.address)}
       </Text>
     </View>
   );

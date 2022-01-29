@@ -3,7 +3,7 @@ import { USER_STORAGE_KEY } from "../common/constants/userConstants";
 import getApiUrl from "../common/helpers/apiUrl";
 
 const AxiosInstance = axios.create({
-  baseURL: getApiUrl(),
+  baseURL: "https://backend.flatly.online/api/v1/", //getApiUrl(),
   timeout: 10000,
   maxBodyLength: 5000,
   maxContentLength: 5000,
@@ -17,7 +17,7 @@ AxiosInstance.interceptors.request.use(
   (request: any) => {
     const userStorage = localStorage.getItem(USER_STORAGE_KEY);
     const userObject = userStorage ? JSON.parse(userStorage) : null;
-    request.headers["Authentication"] = userObject?.value;
+    request.headers["Authentication"] = "1017de8e-9ec5-474e-9781-0bff4ebc07df"; //userObject?.value;
     return request;
   },
   (error) => {

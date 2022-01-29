@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, Image, FlatList, TouchableOpacity, ActivityIndicator } from "react-native";
 import { Searchbar } from "react-native-paper";
 import useFlats from "../modules/useFlats";
+import { firstLine, secondLine } from "../common/helpers/addressConverter";
 
 export default function FlatsScreen({ navigation }: RootTabScreenProps<"TabOne">) {
   const { flatsLoading, flats, fetchFlats } = useFlats();
@@ -14,15 +15,17 @@ export default function FlatsScreen({ navigation }: RootTabScreenProps<"TabOne">
     fetchFlats(null);
   }, []);
 
-  const onPressHandler = (item: any) => {
-    navigation.navigate("FlatDetails", item);
+  const onPressHandler = (flat: undefined) => {
+    navigation.navigate("FlatDetails", flat);
   };
 
   const renderItemHandler = ({ item }: any) => (
     <TouchableOpacity onPress={() => onPressHandler(item)} style={styles.item}>
-      <Text style={styles.title}>
-        {item.flag} {item.name.common}
-      </Text>
+      <Image style={styles.image} source={item.images[0]} />
+      <Text style={styles.title}>{item.name}</Text>
+      <Text style={styles.content}>{item.rooms} rooms</Text>
+      <Text style={styles.content}>{firstLine(item.address)}</Text>
+      <Text style={styles.content}>{secondLine(item.address)}</Text>
     </TouchableOpacity>
   );
 
@@ -46,7 +49,7 @@ export default function FlatsScreen({ navigation }: RootTabScreenProps<"TabOne">
         <FlatList
           data={flats}
           renderItem={renderItemHandler}
-          keyExtractor={(item) => "${item.id}"}
+          keyExtractor={(flat) => (flat.id ? flat.id.toString() : "0")}
           ListHeaderComponent={<Text style={styles.fetchText}>Fetched flats: {flats.length}</Text>}
           onRefresh={refreshHandler}
           refreshing={flatsLoading}
@@ -72,7 +75,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     backgroundColor: "#9AD4D6",
   },
-  logo: {
+  image: {
     width: 84,
     height: 63,
   },

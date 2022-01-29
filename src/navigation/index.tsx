@@ -3,12 +3,12 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
-import { FontAwesome, Ionicons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer, DefaultTheme, DarkTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
-import { ColorSchemeName, Pressable } from "react-native";
+import { ColorSchemeName } from "react-native";
 
 import Colors from "../../constants/Colors";
 import useColorScheme from "../../hooks/useColorScheme";
@@ -18,6 +18,7 @@ import BookingsScreen from "../screens/BookingsScreen";
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from "../common/types/types";
 import LinkingConfiguration from "./LinkingConfiguration";
 import FlatDetailsScreen from "../screens/FlatDetailsScreen";
+import BookingDetailsScreen from "../screens/BookingDetailsScreen";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -49,7 +50,7 @@ function RootNavigator() {
         />
         <Stack.Screen
           name="BookingDetails"
-          component={FlatDetailsScreen}
+          component={BookingDetailsScreen}
           options={{ title: "Booking Details" }}
         />
       </Stack.Group>
