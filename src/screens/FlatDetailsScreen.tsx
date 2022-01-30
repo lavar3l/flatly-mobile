@@ -11,20 +11,13 @@ export default function FlatDetailsScreen({ route }: any) {
     <View style={styles.container}>
       <Text style={styles.title}>{flat.name}</Text>
       <Image style={styles.image} source={flat.images[0]} />
+      <Text style={styles.content}>Address</Text>
+      <Text style={styles.content}>{firstLine(flat.address)}</Text>
+      <Text style={styles.content}>{secondLine(flat.address)}</Text>
+      <Text style={styles.content}>Details</Text>
+      <Text style={styles.content}>Rooms: {flat.rooms}</Text>
+      <Text style={styles.content}>Area: {flat.area}</Text>
       <Text style={styles.content}>
-        Address
-        <br />
-        {firstLine(flat.address)}
-        <br />
-        {secondLine(flat.address)}
-      </Text>
-      <Text style={styles.content}>
-        Details
-        <br />
-        Rooms: {flat.rooms}
-        <br />
-        Area: {flat.area}
-        <br />
         Facilites: {flat.facilities.map((item: Flat) => item.name).join(", ")}
       </Text>
     </View>

@@ -12,13 +12,9 @@ export default function BookingDetailsScreen({ route }: any) {
       <Text style={styles.content}>Check-in date: {booking.startDateTime}</Text>
       <Text style={styles.content}>Flat</Text>
       <Image style={styles.image} source={booking.flat.images[0]} />
-      <Text style={styles.content}>
-        Rooms: {booking.flat.rooms}
-        <br />
-        {firstLine(booking.flat.address)}
-        <br />
-        {secondLine(booking.flat.address)}
-      </Text>
+      <Text style={styles.content}>Rooms: {booking.flat.rooms}</Text>
+      <Text style={styles.content}>{firstLine(booking.flat.address)}</Text>
+      <Text style={styles.content}>{secondLine(booking.flat.address)}</Text>
     </View>
   );
 }
