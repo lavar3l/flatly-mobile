@@ -6,13 +6,17 @@ const useFlats = () => {
   const [flatsLoading, setFlatsLoading] = useState(false);
   const [flats, setFlats] = useState<Flat[]>([]);
   const [flat, setFlat] = useState<Flat>();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   const fetchFlats = (params: any | null = null) => {
     return new Promise((resolve, reject) => {
       setFlatsLoading(true);
       return FlatService.index(params === null ? null : params)
         .then((res: any) => {
-          setFlats(res.data);
+          setFlats(params === null || params.page === 1 ? res.data : [...flats, ...res.data]);
+          setCurrentPage(res.pagination.page);
+          setTotalPages(res.pagination.totalPages);
           resolve(true);
         })
         .catch((e: any) => reject(e))
@@ -39,6 +43,8 @@ const useFlats = () => {
     flat,
     fetchFlats,
     fetchFlat,
+    currentPage,
+    totalPages,
   };
 };
 

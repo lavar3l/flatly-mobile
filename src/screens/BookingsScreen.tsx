@@ -5,7 +5,7 @@ import { StyleSheet, Image, FlatList, TouchableOpacity, ActivityIndicator } from
 import useBookings from "../modules/useBookings";
 
 export default function BookingsScreen({ navigation }: RootTabScreenProps<"TabTwo">) {
-  const { bookingsLoading, bookings, fetchBookings } = useBookings();
+  const { bookingsLoading, bookings, fetchBookings, currentPage, totalPages } = useBookings();
 
   useEffect(() => {
     fetchBookings(null);
@@ -28,6 +28,12 @@ export default function BookingsScreen({ navigation }: RootTabScreenProps<"TabTw
     fetchBookings(null);
   };
 
+  const loadMoreHandler = () => {
+    if (currentPage < totalPages) {
+      fetchBookings(currentPage + 1);
+    }
+  };
+
   return (
     <View style={styles.container}>
       {bookingsLoading ? (
@@ -43,6 +49,9 @@ export default function BookingsScreen({ navigation }: RootTabScreenProps<"TabTw
           }
           onRefresh={refreshHandler}
           refreshing={bookingsLoading}
+          onEndReached={loadMoreHandler}
+          onEndReachedThreshold={0.5}
+          initialNumToRender={0}
         />
       )}
     </View>

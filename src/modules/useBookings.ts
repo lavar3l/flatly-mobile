@@ -6,13 +6,17 @@ const useBookings = () => {
   const [bookingsLoading, setBookingsLoading] = useState(false);
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [booking, setBooking] = useState<Booking>();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   const fetchBookings = (page: number | null = null) => {
     return new Promise((resolve, reject) => {
       setBookingsLoading(true);
       return BookingService.index(page === null ? null : { page })
         .then((res: any) => {
-          setBookings(res.data);
+          setBookings(page === 1 ? res.data : [...bookings, ...res.data]);
+          setCurrentPage(res.pagination.page);
+          setTotalPages(res.pagination.totalPages);
           resolve(true);
         })
         .catch((e: any) => reject(e))
@@ -56,6 +60,8 @@ const useBookings = () => {
     fetchBookings,
     fetchBooking,
     fetchFlatBookings,
+    currentPage,
+    totalPages,
   };
 };
 

@@ -7,9 +7,8 @@ import useFlats from "../modules/useFlats";
 import { firstLine, secondLine } from "../common/helpers/addressConverter";
 
 export default function FlatsScreen({ navigation }: RootTabScreenProps<"TabOne">) {
-  const { flatsLoading, flats, fetchFlats } = useFlats();
+  const { flatsLoading, flats, fetchFlats, currentPage, totalPages } = useFlats();
   const [queryText, setQueryText] = useState("");
-  const [fullQueryState, setFullQueryState] = useState(true);
 
   useEffect(() => {
     fetchFlats(null);
@@ -31,19 +30,36 @@ export default function FlatsScreen({ navigation }: RootTabScreenProps<"TabOne">
 
   const searchHandler = (query: string) => {
     setQueryText(query);
-    if (query.length >= 3)
+    if (query.length >= 3) {
       fetchFlats({
-        page: 1, //TODO
+        page: 1,
         name: query,
+        street: "",
+        city: "",
+      });
+    } else fetchFlats(null);
+  };
+
+  const refreshHandler = () => {
+    if (queryText.length >= 3)
+      fetchFlats({
+        page: 1,
+        name: queryText,
         street: "",
         city: "",
       });
     else fetchFlats(null);
   };
 
-  const refreshHandler = () => {
-    if (queryText.length >= 3) fetchFlats(queryText);
-    else if (fullQueryState === false) fetchFlats(null);
+  const loadMoreHandler = () => {
+    if (currentPage < totalPages) {
+      fetchFlats({
+        page: currentPage + 1,
+        name: queryText,
+        street: "",
+        city: "",
+      });
+    }
   };
 
   return (
@@ -60,6 +76,9 @@ export default function FlatsScreen({ navigation }: RootTabScreenProps<"TabOne">
           ListHeaderComponent={<Text style={styles.fetchText}>Fetched flats: {flats.length}</Text>}
           onRefresh={refreshHandler}
           refreshing={flatsLoading}
+          onEndReached={loadMoreHandler}
+          onEndReachedThreshold={0.5}
+          initialNumToRender={10}
         />
       )}
     </View>
