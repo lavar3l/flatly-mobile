@@ -3,7 +3,7 @@ import { USER_STORAGE_KEY } from "../common/constants/userConstants";
 import getApiUrl from "../common/helpers/apiUrl";
 
 const AxiosInstance = axios.create({
-  baseURL: getApiUrl(),
+  baseURL: "https://backend.flatly.online/api/v1/",
   timeout: 10000,
   maxBodyLength: 5000,
   maxContentLength: 5000,
