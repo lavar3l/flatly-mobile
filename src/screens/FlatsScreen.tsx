@@ -31,8 +31,14 @@ export default function FlatsScreen({ navigation }: RootTabScreenProps<"TabOne">
 
   const searchHandler = (query: string) => {
     setQueryText(query);
-    if (query.length >= 3) fetchFlats(query);
-    else if (fullQueryState === false) fetchFlats(null);
+    if (query.length >= 3)
+      fetchFlats({
+        page: 1, //TODO
+        name: query,
+        street: "",
+        city: "",
+      });
+    else fetchFlats(null);
   };
 
   const refreshHandler = () => {
@@ -47,6 +53,7 @@ export default function FlatsScreen({ navigation }: RootTabScreenProps<"TabOne">
         <ActivityIndicator size="large" color="#101935" />
       ) : (
         <FlatList
+          style={{ width: "100%" }}
           data={flats}
           renderItem={renderItemHandler}
           keyExtractor={(flat) => (flat.id ? flat.id.toString() : "0")}

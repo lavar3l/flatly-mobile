@@ -34,6 +34,7 @@ export default function BookingsScreen({ navigation }: RootTabScreenProps<"TabTw
         <ActivityIndicator size="large" color="#101935" />
       ) : (
         <FlatList
+          style={{ width: "100%" }}
           data={bookings}
           renderItem={renderItemHandler}
           keyExtractor={(booking) => (booking.id ? booking.id.toString() : "0")}

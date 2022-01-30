@@ -7,7 +7,7 @@ const useFlats = () => {
   const [flats, setFlats] = useState<Flat[]>([]);
   const [flat, setFlat] = useState<Flat>();
 
-  const fetchFlats = (params: string | null = null) => {
+  const fetchFlats = (params: any | null = null) => {
     return new Promise((resolve, reject) => {
       setFlatsLoading(true);
       return FlatService.index(params === null ? null : params)
