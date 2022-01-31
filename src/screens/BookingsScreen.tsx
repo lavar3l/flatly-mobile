@@ -17,10 +17,12 @@ export default function BookingsScreen({ navigation }: RootTabScreenProps<"TabTw
 
   const renderItemHandler = ({ item }: any) => (
     <TouchableOpacity onPress={() => onPressHandler(item)} style={styles.item}>
-      <Image style={styles.image} source={item.flat.images[0]} />
-      <Text style={styles.title}>{item.userData}</Text>
-      <Text style={styles.content}>Flat: {item.flat.name}</Text>
-      <Text style={styles.content}>Check-in date: {item.startDateTime}</Text>
+      <Image style={styles.image} source={require("./images/1.jpg")} />
+      <View style={styles.description}>
+        <Text style={styles.title}>{item.userData}</Text>
+        <Text style={styles.content}>Flat: {item.flat.name}</Text>
+        <Text style={styles.content}>Check-in date: {item.startDateTime}</Text>
+      </View>
     </TouchableOpacity>
   );
 
@@ -61,25 +63,35 @@ export default function BookingsScreen({ navigation }: RootTabScreenProps<"TabTw
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F2FDFF",
+    backgroundColor: "white",
     alignItems: "center",
   },
-  content: {
-    margin: 20,
-    fontSize: 18,
-  },
   item: {
+    flexDirection: "row",
+    alignItems: "center",
     padding: 16,
     marginVertical: 8,
     marginHorizontal: 16,
-    backgroundColor: "#9AD4D6",
+    backgroundColor: "#E0E0E0",
+    borderColor: "#C2185B",
+    borderWidth: 2,
+    borderRadius: 10,
+  },
+  description: {
+    flex: 1,
+    flexDirection: "column",
+    backgroundColor: "#E0E0E0",
+    marginHorizontal: 20,
   },
   image: {
     width: 84,
     height: 63,
   },
   title: {
-    fontSize: 24,
+    fontSize: 20,
+  },
+  content: {
+    fontSize: 12,
   },
   fetchText: {
     fontSize: 12,

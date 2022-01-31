@@ -6,6 +6,13 @@ import Carousel, { Pagination } from "react-native-snap-carousel";
 
 const { width } = Dimensions.get("window");
 
+const IMAGES = {
+  image1: require("./images/1.jpg"),
+  image2: require("./images/2.jpg"),
+  image3: require("./images/3.jpg"),
+  image4: require("./images/4.jpg"),
+};
+
 export default function BookingDetailsScreen({ route }: any) {
   const booking = route.params;
 
@@ -13,16 +20,22 @@ export default function BookingDetailsScreen({ route }: any) {
   const onSelect = (indexSelected: number) => {
     setIndexSelected(indexSelected);
   };
+  const [images, setImages] = useState([
+    { id: "1", image: IMAGES.image1 },
+    { id: "2", image: IMAGES.image2 },
+    { id: "3", image: IMAGES.image3 },
+    { id: "4", image: IMAGES.image4 },
+  ]);
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{booking.userData}</Text>
       <Text style={styles.content}>Check-in date: {booking.startDateTime}</Text>
-      <Text style={styles.content}>Flat</Text>
+      <Text style={styles.header}>Flat</Text>
       <View style={styles.gallery}>
         <Carousel
           layout="default"
-          data={booking.flat.images}
+          data={images}
           sliderWidth={width}
           itemWidth={width}
           onSnapToItem={(index) => onSelect(index)}
@@ -36,11 +49,11 @@ export default function BookingDetailsScreen({ route }: any) {
           )}
         />
         <Pagination
-          inactiveDotColor="gray"
-          dotColor={"orange"}
+          inactiveDotColor="#263238"
+          dotColor={"#C2185B"}
           activeDotIndex={indexSelected}
-          dotsLength={booking.flat.images.length}
-          animatedDuration={150}
+          dotsLength={images.length}
+          animatedDuration={200}
           inactiveDotScale={1}
         />
       </View>
@@ -53,26 +66,28 @@ export default function BookingDetailsScreen({ route }: any) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#F2FDFF",
-    alignItems: "center",
-    justifyContent: "center",
+    flex: 0,
+    backgroundColor: "white",
   },
   gallery: {
-    width: 0.9 * width,
+    paddingTop: 10,
+    width: width,
     height: 300,
-    backgroundColor: "#F2FDFF",
+    backgroundColor: "#E0E0E0",
     alignSelf: "center",
-  },
-  content: {
-    margin: 5,
-    fontSize: 20,
   },
   title: {
     fontSize: 24,
+    alignSelf: "center",
   },
-  fetchText: {
-    fontSize: 12,
-    textAlign: "center",
+  header: {
+    marginTop: 5,
+    paddingLeft: 30,
+    fontSize: 20,
+  },
+  content: {
+    marginBottom: 2,
+    paddingLeft: 30,
+    fontSize: 16,
   },
 });

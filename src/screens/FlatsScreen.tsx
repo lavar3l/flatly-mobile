@@ -20,11 +20,13 @@ export default function FlatsScreen({ navigation }: RootTabScreenProps<"TabOne">
 
   const renderItemHandler = ({ item }: any) => (
     <TouchableOpacity onPress={() => onPressHandler(item)} style={styles.item}>
-      <Image style={styles.image} source={item.images[0]} />
-      <Text style={styles.title}>{item.name}</Text>
-      <Text style={styles.content}>{item.rooms} rooms</Text>
-      <Text style={styles.content}>{firstLine(item.address)}</Text>
-      <Text style={styles.content}>{secondLine(item.address)}</Text>
+      <Image style={styles.image} source={require("./images/1.jpg")} />
+      <View style={styles.description}>
+        <Text style={styles.title}>{item.name}</Text>
+        <Text style={styles.content}>{item.rooms} rooms</Text>
+        <Text style={styles.content}>{firstLine(item.address)}</Text>
+        <Text style={styles.content}>{secondLine(item.address)}</Text>
+      </View>
     </TouchableOpacity>
   );
 
@@ -88,25 +90,34 @@ export default function FlatsScreen({ navigation }: RootTabScreenProps<"TabOne">
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F2FDFF",
+    backgroundColor: "white",
     alignItems: "center",
   },
-  content: {
-    margin: 20,
-    fontSize: 18,
-  },
   item: {
+    flexDirection: "row",
+    alignItems: "center",
     padding: 16,
     marginVertical: 8,
     marginHorizontal: 16,
-    backgroundColor: "#9AD4D6",
+    backgroundColor: "#E0E0E0",
+    borderColor: "#C2185B",
+    borderWidth: 2,
+    borderRadius: 10,
+  },
+  description: {
+    flexDirection: "column",
+    backgroundColor: "#E0E0E0",
+    marginHorizontal: 20,
   },
   image: {
     width: 84,
     height: 63,
   },
   title: {
-    fontSize: 24,
+    fontSize: 20,
+  },
+  content: {
+    fontSize: 12,
   },
   fetchText: {
     fontSize: 12,
