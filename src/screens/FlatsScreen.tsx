@@ -20,7 +20,11 @@ export default function FlatsScreen({ navigation }: RootTabScreenProps<"TabOne">
 
   const renderItemHandler = ({ item }: any) => (
     <TouchableOpacity onPress={() => onPressHandler(item)} style={styles.item}>
-      <Image style={styles.image} source={require("./images/1.jpg")} />
+      {item.images.length == 0 ? (
+        <Image style={styles.image} source={require("./images/placeholder.png")} />
+      ) : (
+        <Image style={styles.image} source={{ uri: item.images[0].path }} />
+      )}
       <View style={styles.description}>
         <Text style={styles.title}>{item.name}</Text>
         <Text style={styles.content}>{item.rooms} rooms</Text>
