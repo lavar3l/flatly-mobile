@@ -7,22 +7,8 @@ import Carousel, { Pagination } from "react-native-snap-carousel";
 
 const { width } = Dimensions.get("window");
 
-const IMAGES = {
-  image1: require("./images/1.jpg"),
-  image2: require("./images/2.jpg"),
-  image3: require("./images/3.jpg"),
-  image4: require("./images/4.jpg"),
-};
-
 export default function FlatDetailsScreen({ route }: any) {
   const flat = route.params;
-
-  const [images, setImages] = useState([
-    { id: "1", image: IMAGES.image1 },
-    { id: "2", image: IMAGES.image2 },
-    { id: "3", image: IMAGES.image3 },
-    { id: "4", image: IMAGES.image4 },
-  ]);
 
   const [indexSelected, setIndexSelected] = useState(0);
   const onSelect = (indexSelected: number) => {
@@ -35,16 +21,16 @@ export default function FlatDetailsScreen({ route }: any) {
       <View style={styles.gallery}>
         <Carousel
           layout="default"
-          data={images}
+          data={flat.images}
           sliderWidth={width}
           itemWidth={width}
           onSnapToItem={(index) => onSelect(index)}
-          renderItem={({ item, index }) => (
+          renderItem={({ item, index }: any) => (
             <Image
               key={index}
               style={{ width: "100%", height: "100%" }}
               resizeMode="contain"
-              source={item.image}
+              source={{ uri: item.path }}
             />
           )}
         />
@@ -52,7 +38,7 @@ export default function FlatDetailsScreen({ route }: any) {
           inactiveDotColor="#263238"
           dotColor={"#C2185B"}
           activeDotIndex={indexSelected}
-          dotsLength={images.length}
+          dotsLength={flat.images.length}
           animatedDuration={200}
           inactiveDotScale={1}
         />

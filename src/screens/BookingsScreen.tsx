@@ -17,7 +17,11 @@ export default function BookingsScreen({ navigation }: RootTabScreenProps<"TabTw
 
   const renderItemHandler = ({ item }: any) => (
     <TouchableOpacity onPress={() => onPressHandler(item)} style={styles.item}>
-      <Image style={styles.image} source={require("./images/1.jpg")} />
+      {item.flat.images.length == 0 ? (
+        <Image style={styles.image} source={require("./images/placeholder.png")} />
+      ) : (
+        <Image style={styles.image} source={{ uri: item.flat.images[0].path }} />
+      )}
       <View style={styles.description}>
         <Text style={styles.title}>{item.userData}</Text>
         <Text style={styles.content}>Flat: {item.flat.name}</Text>
